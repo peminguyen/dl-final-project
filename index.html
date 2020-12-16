@@ -18,9 +18,9 @@
           <tr style="padding:0px">
             <td style="padding:2.5%;width:63%;vertical-align:middle">
               <p style="text-align:center">
-                <name>Project title</name>
+                <name>Propaganda Dectection Using BERT</name>
               </p>
-              <p>Authors.
+              <p>Group members: Pemi Nguyen, Joy He, Fengyuan Liu, and Lily Zhao
               </p>
             </td>
 <!--             <td style="padding:2.5%;width:40%;max-width:40%">
@@ -48,7 +48,7 @@
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Problem statement</heading>
               <p>
-                what are you trying to solve/do
+                We want to build a propaganda classifier that aims to detect whether an online article from a website is "propagandistic"(positive class)or "non-propagandistic"(negative class). The labeling was done indirectly using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a>, where an article is considered propagandistic if it comes from a news outlet that is labeled as propagandistic by human annotators. In today's world, there’s a lot of widespread propaganda on different social media and online platforms, and it’s not easy to spot them with untrained human eyes.
               </p>
             </td>
           </tr>
@@ -62,6 +62,9 @@
               <heading>Related work</heading>
               <p>
                 what papers/ideas inspired you, what datasets did you use, etc
+              </p>
+              <p>
+                For our dataset, we used <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">Proppy Corpus 1.0</a>. This corpus contains 52k articles from 100+ news outlets. Each article is labeled as either “propagandistic” or “non-propagandistic”. The dataset was split into 3 subsets: training, validation, and test set.
               </p>
             </td>
           </tr>
@@ -87,7 +90,8 @@
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Experiments/evaluation</heading>
               <p>
-                how are you evaluating your results
+                We trained our models on the training set until the validation loss stops increasing. Then, we ran all the models on the test set to get a final test accurracy, and then in the end, we will run all the models with a test set to check the final test accuracy. 
+                To evaluate our model, we built a baseline model, which is a logistic regression model.
               </p>
             </td>
           </tr>
