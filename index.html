@@ -48,7 +48,7 @@
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Problem statement</heading>
               <p>
-                We want to build a propaganda classifier that aims to detect whether an online article from a website is "propagandistic"(positive class)or "non-propagandistic"(negative class). The labeling was done indirectly using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a>, where an article is considered propagandistic if it comes from a news outlet that is labeled as propagandistic by human annotators. In today's world, there’s a lot of widespread propaganda on different social media and online platforms, and it’s not easy to spot them with untrained human eyes.
+                In today's world, there’s a lot of widespread propaganda on different social media and online platforms, and it’s not easy to spot them with untrained human eyes. We want to build a propaganda classifier that aims to detect whether an online article from a website is "propagandistic"(positive class)or "non-propagandistic"(negative class). The labeling was done indirectly using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a>, where an article is considered propagandistic if it comes from a news outlet that is labeled as propagandistic by human annotators.
               </p>
             </td>
           </tr>
@@ -61,7 +61,7 @@
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Related work</heading>
               <p>
-                what papers/ideas inspired you, what datasets did you use, etc
+                Previous work on propaganda detection has focused on using word n-gram representation as features for machine learning models. <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjagYrYvdTtAhWS3YUKHbt8AFoQFjAAegQIAhAC&url=https%3A%2F%2Fwww.aclweb.org%2Fanthology%2FD17-1317&usg=AOvVaw2CML3xIxQK7tMLmqZ2OTbQ">Rashkin et al.</a> formulated a text classification task (propaganda vs. trusted) using n-grams with a logistic regression model, which led to poor performance on articles outside the sources that the system was trained on. <a href="https://www.sciencedirect.com/science/article/abs/pii/S0306457318306058">Barron et al.</a> experimented with various features, from writing style and readability level to the presence of certain keywords, and also used logistic regression models as well as SVMs. 
               </p>
               <p>
                 For our dataset, we used <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">Proppy Corpus 1.0</a>. This corpus contains 52k articles from 100+ news outlets. Each article is labeled as either “propagandistic” or “non-propagandistic”. The dataset was split into 3 subsets: training, validation, and test set.
