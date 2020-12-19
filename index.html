@@ -172,6 +172,8 @@
                 <tr>
                     <td style="padding:20px;width:100%;vertical-align:middle">
                         <heading>Methodology</heading>
+                        <ol>
+                          <li><strong>Fine-tuned BERT</strong></li>
                         <p>
                           Our approach used BERT to train a text classifier. Specifically, we took the pre-trained BERT model and added a few connected layers on top (with ReLU and Dropout) and trained the new model for our propaganda classification task. Fine-tuning BERT has three advantages over training a specific deep learning model (e.g., CNN and BiLSTM) that is well suited for specific NLP tasks:
                         <ul>
@@ -198,7 +200,7 @@
                         </p>
 
                         <p>
-                            The way BERT does sentence classification, is that it adds a token called [CLS] (for classification) at the beginning of every sentence. The output corresponding to that token can be thought of as an embedding for the entire sentence. We saved those embeddings to be used as the features to our baseline model - a Naive Bayes classifier.
+                            The way BERT does sentence classification, is that it adds a token called [CLS] (for classification) at the beginning of every sentence. The output corresponding to that token can be thought of as an embedding for the entire sentence. We saved those embeddings to be used as the features to our baseline model - a Naive Bayes classifier with TF-IDF vectorization.
                         </p>
 
                         <p>
@@ -226,6 +228,13 @@
                             </li>
                         </ul>
                         </p>
+                        <li><strong>Baseline: Naive Bayes with TF-IDF vectorization</strong></li>
+                        <p> In order to check how well the BERT model does compare to other NLP models, we chose a Naive Bayes classifier with TF-IDF vectorization as our baseline.
+                        </p>
+
+                        <p> Naive Bayes classifiers are linear classifiers known for being easy to implement. Naive Bayes naively assumes that each word in a text occurs independently of its surrounding words. In practice, this independence assumption is usually violated, because words are not mutually independent. However, this model is able to achieve standard accuracies on a lot of NLP problems. In <a href="https://hrashkin.github.io/publications/factcheck_emnlp17.pdf">Rashkin et al</a>’s research on fake news detection and political fact-checking using a Politico dataset, the Naive Bayes model yielded the highest tech accuracy for text classification on 2 classes together with a LSTM one (56 %).
+                        </p>
+                      </ol>
                     </td>
                 </tr>
                 </tbody>
@@ -260,17 +269,35 @@
                 <tr>
                     <td style="padding:20px;width:100%;vertical-align:middle">
                         <heading>Results</heading>
+                        <ol>
+                          <li><strong>Naive Bayes classifier</strong>
+                          </li>
+                        <p>
+                          The table below shows the performance of the Naive Bayes classifier.
+                        </p>
+                            <img src="nb_table.png" width="600" height="220" class="center">                        
+                        <p> The figure below is the confusion matrix for the Naive Bayes classifier.
+                        </p>
+
+                            <img src="nb_confusion.png" width="600" height="300" class="center">
+
+                          <li><strong>Fine-tuned BERT</strong></li>
+                        <p>
+                          The table below shows the performance of the Fine-tuned BERT model.
+                        </p>
+                            <img src="bert_table.png" width="600" height="220" class="center"> 
+
                         <p>
                             The figure below shows the confusion matrix for the BERT model.
                         </p>
 
                             <img src="bert_confusion.png" width="600" height="300" class="center">    
                             
-                        <p> The figure below is the confusion matrix for the Naive Bayes classifier.
+                        <p> The test accuracies for both models are roughly close and very high (95.46% for the Naive Bayes model and 97.41% for the fine-tuned BERT model). However, purely looking at this doesn’t allow us to have a full picture of how well these two models perform. Due to the imbalance proportion of propagandistic articles in the original dataset (about 11% across 3 data files), both models might have learned the features of a non-propagandistic article well, and the classification result is skewed towards the non-propagandistic class. As a result, both models have very high true negative rates, which are close to 100%. This suggests that they both don’t have difficulty identifying articles free of propagandistic content. However, when looking at the true positive rate, we can see that the Naive Bayes model doesn’t do as well as the fine-tuned BERT one. BERT seems to be able to extract features of propagandistic content in an article and learn to differentiate it with unbiased, neutral content.
                         </p>
 
-                            <img src="nb_confusion.png" width="600" height="300" class="center"> 
-                        <p> Results show that while the BERT model and the Naive Bayes classifier achieved roughly similarly high overall accuracy and high true negative rate (correctly identifying a non-propagandistic news as one), the BERT fine-tuned model has a 16.4% larger true positive rate (correctly identifying a propagandistic news as one).
+                        <p>
+                          It’s worth noting that the true positive rates from both models are not as not as good their respective true negative rates, which seems to suggest that NLP models, even the classic ones, are able to correctly evaluate non-propagandistic content with very high probability, but propagandistic content still poses a challenge to them. 
                         </p>
                     </td>
                 </tr>
