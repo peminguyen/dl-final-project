@@ -1,198 +1,334 @@
 <!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>DL final project</title>
-  
-  <meta name="author" content="Joy He-Yueya">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  <link rel="icon" type="image/png" href="images/seal_icon.png">
+    <title>DL final project</title>
+
+    <meta name="author" content="Joy He-Yueya">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" type="image/png" href="images/seal_icon.png">
 </head>
 
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+<table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
     <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Propaganda Dectection Using BERT</name>
-              </p>
-              <p>Group members: Pemi Nguyen, Joy He, Fengyuan Liu, and Lily Zhao
-              </p>
-            </td>
-<!--             <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/joyheyueya.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/joyheyueya.jpg" class="hoverZoomLink"></a>
-            </td> -->
-          </tr>
-        </tbody></table>
+        <td style="padding:0px">
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr style="padding:0px">
+                    <td style="padding:2.5%;width:63%;vertical-align:middle">
+                        <p style="text-align:center">
+                            <name>Propaganda Dectection Using BERT</name>
+                        </p>
+                        <p>Group members: Pemi Nguyen, Joy He, Fengyuan Liu, and Lily Zhao
+                        </p>
+                    </td>
+                    <!--             <td style="padding:2.5%;width:40%;max-width:40%">
+                                  <a href="images/joyheyueya.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/joyheyueya.jpg" class="hoverZoomLink"></a>
+                                </td> -->
+                </tr>
+                </tbody>
+            </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Abstract</heading>
-              <p>
-                in a paragraph or two, summarize the project
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>
-  
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Abstract</heading>
+                        <p>
+                            Fake news contains all types of false, inaccurate or misleading information about individuals,
+                            historical events, social issues, etc. and pose a big threat to our society. In today's world,
+                            there’s a lot of widespread misinformation on different social media and online platforms, and
+                            it’s not easy to distinguish fake news from real ones from the untrained human eyes.
+                        </p>
+                        <p>
+                            In this project, we want to build a fake news classifier that aims to detect whether an
+                            online article from a website contains fake news or not by BERT Fine-Tuning.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Problem statement</heading>
-              <p>
-                In today's world, there’s a lot of widespread propaganda on different social media and online platforms. Propaganda is biased information that propagates a particular ideology or political orientation, which might have negative impacts on individuals and society (e.g., the US Presidential campaign in 2016 was influenced by propaganda and fake news). It is difficult to spot propaganda with untrained human eyes because propaganda is not necessarily misinformtion. Our goal is to build a propaganda classifier that aims to detect whether an online article from a website is "propagandistic" (positive class) or "non-propagandistic" (negative class). The labeling was done indirectly using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a>, where an article is considered propagandistic if it comes from a news outlet that is labeled as propagandistic by human annotators.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table> 
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Related work</heading>
-              <p>
-                Previous work on propaganda detection has focused on using word n-gram representation as features for machine learning models. <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjagYrYvdTtAhWS3YUKHbt8AFoQFjAAegQIAhAC&url=https%3A%2F%2Fwww.aclweb.org%2Fanthology%2FD17-1317&usg=AOvVaw2CML3xIxQK7tMLmqZ2OTbQ">Rashkin et al.</a> formulated a text classification task (propaganda vs. trusted) using n-grams with a logistic regression model, which led to poor performance on articles outside the sources that the system was trained on. <a href="https://www.sciencedirect.com/science/article/abs/pii/S0306457318306058">Barron et al.</a> experimented with various features, from writing style and readability level to the presence of certain keywords, and also used logistic regression models as well as SVMs. Other studies have looked into detecting common propaganda techniques such as name calling (i.e., attacking an object/subject of the propaganda with an insulting label), repetition (i.e., repeating the same message over and over), and slogans (i.e., using a brief and memorable phrase). <a href="https://www.aclweb.org/anthology/D19-1565/">Da San Martino et al.</a> proposed a multi-granularity deep neural network that predicts where a propaganda technique is used in a piece of text as well as the type of technique. Their best-performing models for this task used <a href="https://arxiv.org/abs/1810.04805">BERT</a>-based contextual representations. <a href="https://arxiv.org/pdf/2006.00593.pdf?fbclid=IwAR0EJp_Uhq9T5Gh2R1TPeQrvYmoNjb72PNWtsJKpIk998FX1vdFMORInbA0">Agarwal et al.</a> built on their work by developing an ensembled model combining linguistic features-based machine learning classifiers with these transformer models.
-              </p>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Problem statement</heading>
+                        <p>
+                            In today's world, there’s a lot of widespread propaganda on different social media and
+                            online platforms.
+                            Propaganda is biased information that propagates a particular ideology or political
+                            orientation, which might
+                            have negative impacts on individuals and society (e.g., the US Presidential campaign in 2016
+                            was influenced
+                            by propaganda and fake news). It is difficult to spot propaganda with untrained human eyes
+                            because propaganda
+                            is not necessarily misinformtion. Our goal is to build a propaganda classifier that aims to
+                            detect whether
+                            an online article from a website is "propagandistic" (positive class) or
+                            "non-propagandistic" (negative class).
+                            The labeling was done indirectly using <a
+                                href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant
+                            supervision</a>, where an article is considered propagandistic if it comes from a news
+                            outlet that is labeled
+                            as propagandistic by human annotators.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
 
-              <p>
-                <a href="https://arxiv.org/abs/1810.04805">BERT</a> (Bidirectional Encoder Representations from Transformers), released in late 2018, is a method of pretraining language representations that was used to create models that NLP practicioners can then download and use for free. These models can then be used to extract high quality language features from raw text data or can be fine-tuned on a specific task (classification, entity recognition, question answering, etc.) with a different dataset to produce state-of-the-art predictions.
-              </p>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Related work</heading>
+                        <p>
+                            Previous work on propaganda detection has focused on using word n-gram representation as
+                            features for machine learning models. <a
+                                href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjagYrYvdTtAhWS3YUKHbt8AFoQFjAAegQIAhAC&url=https%3A%2F%2Fwww.aclweb.org%2Fanthology%2FD17-1317&usg=AOvVaw2CML3xIxQK7tMLmqZ2OTbQ">Rashkin
+                            et al.</a> formulated a text classification task (propaganda vs. trusted) using n-grams with
+                            a logistic regression model, which led to poor performance on articles outside the sources
+                            that the system was trained on. <a
+                                href="https://www.sciencedirect.com/science/article/abs/pii/S0306457318306058">Barron et
+                            al.</a> experimented with various features, from writing style and readability level to the
+                            presence of certain keywords, and also used logistic regression models as well as SVMs.
+                            Other studies have looked into detecting common propaganda techniques such as name calling
+                            (i.e., attacking an object/subject of the propaganda with an insulting label), repetition
+                            (i.e., repeating the same message over and over), and slogans (i.e., using a brief and
+                            memorable phrase). <a href="https://www.aclweb.org/anthology/D19-1565/">Da San Martino et
+                            al.</a> proposed a multi-granularity deep neural network that predicts where a propaganda
+                            technique is used in a piece of text as well as the type of technique. Their best-performing
+                            models for this task used <a href="https://arxiv.org/abs/1810.04805">BERT</a>-based
+                            contextual representations. <a
+                                href="https://arxiv.org/pdf/2006.00593.pdf?fbclid=IwAR0EJp_Uhq9T5Gh2R1TPeQrvYmoNjb72PNWtsJKpIk998FX1vdFMORInbA0">Agarwal
+                            et al.</a> built on their work by developing an ensembled model combining linguistic
+                            features-based machine learning classifiers with these transformer models.
+                        </p>
 
-              <p>
-                For our dataset, we used <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">Proppy Corpus 1.0</a>. This corpus contains 52k articles from 100+ news outlets. Each article is labeled as either “propagandistic” or “non-propagandistic”. The labeling was done indirectly using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a> with information from <a href="http://mediabiasfactcheck.com">Media Bias/Fact Check (MBFC)</a>, which is an independent organization evaluating media in terms of their bias and propagandist content. The organization is comprised of expert journalists or volunteers who analyze entire news outlets. An article is considered propagandistic if it comes from a news outlet that is labeled as propagandistic by these expert annotators. The dataset was split into 3 subsets: training, validation, and test set.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table> 
+                        <p>
+                            <a href="https://arxiv.org/abs/1810.04805">BERT</a> (Bidirectional Encoder Representations
+                            from Transformers), released in late 2018, is a method of pretraining language
+                            representations that was used to create models that NLP practicioners can then download and
+                            use for free. These models can then be used to extract high quality language features from
+                            raw text data or can be fine-tuned on a specific task (classification, entity recognition,
+                            question answering, etc.) with a different dataset to produce state-of-the-art predictions.
+                        </p>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Methodology</heading>
-              <p>
-                Our approach used BERT to train a text classifier. Specifically, we took the pre-trained BERT model, added a few untrained layers of neurons on the end, and trained the new model for our propaganda classification task. Fine-tuning BERT has three advantages over training a specific deep learning model (e.g., CNN and BiLSTM) that is well suited specific NLP tasks:
-                <ul>
-                  <li><strong>Quicker Development</strong>: The pre-trained BERT model weights already encode a lot of information about our language. As a result, it takes much less time to train our fine-tuned model - it is as if we have already trained the bottom layers of our network extensively and only need to gently tune them while using their output as features for our classification task. In fact, the authors recommend only 2-4 epochs of training for fine-tuning BERT on a specific NLP task (compared to the hundreds of GPU hours needed to train the original BERT model or a LSTM from scratch!).</li>
-                  <li><strong>Less Data</strong>: Because of the pre-trained weights, this method allows us to fine-tune our task on a much smaller dataset than would be required in a model that is built from scratch. A major drawback of NLP models built from scratch is that we often need a prohibitively large dataset in order to train our network to reasonable accuracy, meaning a lot of time and energy had to be put into dataset creation. By fine-tuning BERT, we are now able to get away with training a model to good performance on a much smaller amount of training data.</li>
-                  <li><strong>Better Results</strong>: This simple fine-tuning procedure (typically adding one fully-connected layer on top of BERT and training for a few epochs) was shown to achieve state-of-the-art results with minimal task-specific adjustments for a wide variety of tasks: classification, language inference, semantic similarity, question answering, etc. Rather than implementing custom and sometimes-obscure architetures shown to work well on a specific task, simply fine-tuning BERT is shown to be a better (or at least equal) alternative.</li>     
-                </ul>                
-              </p>
+                        <p>
+                            For our dataset, we used <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">Proppy
+                            Corpus 1.0</a>. This corpus contains 52k articles from 100+ news outlets. Each article is
+                            labeled as either “propagandistic” or “non-propagandistic”. The labeling was done indirectly
+                            using <a href="https://zenodo.org/record/3271522#.X9m6Hy2cZo5">distant supervision</a> with
+                            information from <a href="http://mediabiasfactcheck.com">Media Bias/Fact Check (MBFC)</a>,
+                            which is an independent organization evaluating media in terms of their bias and
+                            propagandist content. The organization is comprised of expert journalists or volunteers who
+                            analyze entire news outlets. An article is considered propagandistic if it comes from a news
+                            outlet that is labeled as propagandistic by these expert annotators. The dataset was split
+                            into 3 subsets: training, validation, and test set.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
 
-              <p>
-                We will discuss specific implementation details in the following.
-              </p>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Methodology</heading>
+                        <p>
+                            Our approach used BERT to train a text classifier. Specifically, we took the pre-trained
+                            BERT model, added a few untrained layers of neurons on the end, and trained the new model
+                            for our propaganda classification task. Fine-tuning BERT has three advantages over training
+                            a specific deep learning model (e.g., CNN and BiLSTM) that is well suited specific NLP
+                            tasks:
+                        <ul>
+                            <li><strong>Quicker Development</strong>: The pre-trained BERT model weights already encode
+                                a lot of information about our language. As a result, it takes much less time to train
+                                our fine-tuned model - it is as if we have already trained the bottom layers of our
+                                network extensively and only need to gently tune them while using their output as
+                                features for our classification task. In fact, the authors recommend only 2-4 epochs of
+                                training for fine-tuning BERT on a specific NLP task (compared to the hundreds of GPU
+                                hours needed to train the original BERT model or a LSTM from scratch!).
+                            </li>
+                            <li><strong>Less Data</strong>: Because of the pre-trained weights, this method allows us to
+                                fine-tune our task on a much smaller dataset than would be required in a model that is
+                                built from scratch. A major drawback of NLP models built from scratch is that we often
+                                need a prohibitively large dataset in order to train our network to reasonable accuracy,
+                                meaning a lot of time and energy had to be put into dataset creation. By fine-tuning
+                                BERT, we are now able to get away with training a model to good performance on a much
+                                smaller amount of training data.
+                            </li>
+                            <li><strong>Better Results</strong>: This simple fine-tuning procedure (typically adding one
+                                fully-connected layer on top of BERT and training for a few epochs) was shown to achieve
+                                state-of-the-art results with minimal task-specific adjustments for a wide variety of
+                                tasks: classification, language inference, semantic similarity, question answering, etc.
+                                Rather than implementing custom and sometimes-obscure architetures shown to work well on
+                                a specific task, simply fine-tuning BERT is shown to be a better (or at least equal)
+                                alternative.
+                            </li>
+                        </ul>
+                        </p>
 
-              <p>
-                We first processed and cleaned our raw data. We removed entity mentions (e.g., @united) and some special characters. The level of processing here is much less than in <a href="https://arxiv.org/pdf/2006.00593.pdf?fbclid=IwAR0EJp_Uhq9T5Gh2R1TPeQrvYmoNjb72PNWtsJKpIk998FX1vdFMORInbA0">previous approachs</a> because BERT was trained with the entire sentences.    
-              </p>
+                        <p>
+                            We will discuss specific implementation details in the following.
+                        </p>
 
-              <p>
-                To feed our text to BERT, it must be split into tokens, and then these tokens must be mapped to their index in the tokenizer vocabulary. We first split the sentence into tokens and added the special [CLS] and [SEP] tokens. We then mapped the tokens to their IDs. We padded or truncated all sentences to the same length. Finally, we created the attention masks which explicitly differentiate real tokens from [PAD] tokens.
-              </p>
+                        <p>
+                            We first processed and cleaned our raw data. We removed entity mentions (e.g., @united) and
+                            some special characters. The level of processing here is much less than in <a
+                                href="https://arxiv.org/pdf/2006.00593.pdf?fbclid=IwAR0EJp_Uhq9T5Gh2R1TPeQrvYmoNjb72PNWtsJKpIk998FX1vdFMORInbA0">previous
+                            approachs</a> because BERT was trained with the entire sentences.
+                        </p>
 
-              <p>
-                The way BERT does sentence classification, is that it adds a token called [CLS] (for classification) at the beginning of every sentence. The output corresponding to that token can be thought of as an embedding for the entire sentence. We saved those embedding to be used as the features to our baseline logitics regression model.
-              </p>
+                        <p>
+                            To feed our text to BERT, it must be split into tokens, and then these tokens must be mapped
+                            to their index in the tokenizer vocabulary. We first split the sentence into tokens and
+                            added the special [CLS] and [SEP] tokens. We then mapped the tokens to their IDs. We padded
+                            or truncated all sentences to the same length. Finally, we created the attention masks which
+                            explicitly differentiate real tokens from [PAD] tokens.
+                        </p>
 
-              <p>
-                BERT consists of 12 transformer layers, each transformer layer takes in a list of token embeddings, and produces the same number of embeddings with the same hidden size (or dimensions) on the output. The output of the final transformer layer of the [CLS] token is used as the features of the sequence to feed a classifier. We extracted the last hidden layer of the [CLS] token and fed it to a single-hidden-layer feed-forward neural network as our classifier.
-              </p>
+                        <p>
+                            The way BERT does sentence classification, is that it adds a token called [CLS] (for
+                            classification) at the beginning of every sentence. The output corresponding to that token
+                            can be thought of as an embedding for the entire sentence. We saved those embedding to be
+                            used as the features to our baseline logitics regression model.
+                        </p>
 
-              <p>
-                During training, we did the following at each pass:
-                <ul>
-                  <li> Unpack our data inputs and labels
-                  </li>
-                  <li> Load data onto the GPU for acceleration
-                  </li>  
-                  <li> Clear out the gradients calculated in the previous pass
-                  </li>
-                  <li> Forward pass (feed input data through the network)
-                  </li>       
-                  <li> Backward pass (backpropagation)
-                  </li>
-                  <li> Tell the network to update parameters with optimizer.step()
-                  </li>  
-                  <li> Track variables for monitoring progress
-                  </li>
-                  <li> Compute loss on our validation data and track variables for monitoring progress
-                  </li>                                                
-                </ul>
-              </p>
+                        <p>
+                            BERT consists of 12 transformer layers, each transformer layer takes in a list of token
+                            embeddings, and produces the same number of embeddings with the same hidden size (or
+                            dimensions) on the output. The output of the final transformer layer of the [CLS] token is
+                            used as the features of the sequence to feed a classifier. We extracted the last hidden
+                            layer of the [CLS] token and fed it to a single-hidden-layer feed-forward neural network as
+                            our classifier.
+                        </p>
 
-              <p>
-                We tuned our hyperparameters and eventually chose a batch size of 8, a learning rate of 1 e-7, and 4 for the number of epochs. 
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>    
-        
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Experiments/evaluation</heading>
-              <p>
-                We trained our models on the training set until the validation loss stops increasing. Then, we ran all the models on the test set to get a final test accurracy, and then in the end, we will run all the models with a test set to check the final test accuracy. 
-                To evaluate our model, we built a baseline model, which is a logistic regression model.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>               
+                        <p>
+                            During training, we did the following at each pass:
+                        <ul>
+                            <li> Unpack our data inputs and labels
+                            </li>
+                            <li> Load data onto the GPU for acceleration
+                            </li>
+                            <li> Clear out the gradients calculated in the previous pass
+                            </li>
+                            <li> Forward pass (feed input data through the network)
+                            </li>
+                            <li> Backward pass (backpropagation)
+                            </li>
+                            <li> Tell the network to update parameters with optimizer.step()
+                            </li>
+                            <li> Track variables for monitoring progress
+                            </li>
+                            <li> Compute loss on our validation data and track variables for monitoring progress
+                            </li>
+                        </ul>
+                        </p>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Results</heading>
-              <p>
-                How well did you do
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>  
+                        <p>
+                            We tuned our hyperparameters and eventually chose a batch size of 8, a learning rate of 1
+                            e-7, and 4 for the number of epochs.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Examples</heading>
-              <p>
-                images/text/live demo, anything to show off your work
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>    
-        
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Video</heading>
-              <p>
-                a 2-3 minute long video where you explain your project and the above information
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        </tbody></table>               
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Experiments/evaluation</heading>
+                        <p>
+                            We trained our models on the training set until the validation loss stops increasing. Then,
+                            we ran all the models on the test set to get a final test accurracy, and then in the end, we
+                            will run all the models with a test set to check the final test accuracy.
+                            To evaluate our model, we built a baseline model, which is a logistic regression model.
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
+
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Results</heading>
+                        <p>
+                            How well did you do
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
+
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Examples</heading>
+                        <p>
+                            images/text/live demo, anything to show off your work
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
+
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                <tr>
+                    <td style="padding:20px;width:100%;vertical-align:middle">
+                        <heading>Video</heading>
+                        <p>
+                            a 2-3 minute long video where you explain your project and the above information
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                </tbody>
+            </table>
 </body>
 
 </html>
