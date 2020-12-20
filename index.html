@@ -115,12 +115,7 @@
                         </p>
 
                         <p>
-                            <a href="https://arxiv.org/abs/1810.04805">BERT</a> (Bidirectional Encoder Representations
-                            from Transformers), released in late 2018, is a method of pretraining language
-                            representations that was used to create models that NLP practicioners can then download and
-                            use for free. These models can then be used to extract high quality language features from
-                            raw text data or can be fine-tuned on a specific task (classification, entity recognition,
-                            question answering, etc.) with a different dataset to produce state-of-the-art predictions.
+                            <a href="https://arxiv.org/abs/1810.04805">BERT</a> (Bidirectional Encoder Representations from Transformers), released in late 2018, is a method of pretraining language representations that was used to create models that NLP practitioners can then download and use for free. These models can then be used to extract high quality language features from raw text data or can be fine-tuned on a specific task (classification, entity recognition, question answering, etc.) with a different dataset to produce state-of-the-art predictions.
                         </p>
                     </td>
                 </tr>
@@ -175,14 +170,14 @@
                         <ol>
                           <li><strong>Fine-tuned BERT</strong></li>
                         <p>
-                          Our approach used BERT to train a text classifier. Specifically, we took the pre-trained BERT model and added a few connected layers on top (with ReLU and Dropout) and trained the new model for our propaganda classification task. Fine-tuning BERT has three advantages over training a specific deep learning model (e.g., CNN and BiLSTM) that is well suited for specific NLP tasks:
+                          Our approach used BERT to train a text classifier. Specifically, we took the pre-trained BERT model and added a few connected layers on top (with ReLU and Dropout) and trained the new model for our propaganda classification task. Fine-tuning BERT has three advantages over training a specific deep learning model (e.g., CNN and BiLSTM) that is well suited specific NLP tasks:
                         <ul>
                             <li><strong>Quicker Development</strong>: 
-                              The pre-trained BERT model weights already encode a lot of information about our language, so it takes a lot less time to train the fine-tuned model. The authors recommend only 2-4 epochs for fine-tuning BERT, which saves a lot of time, compared to having to train models from scratch.
+                            The pre-trained BERT model weights already encode a lot of information about our language, so it takes a lot less time to train the fine-tuned model. The authors recommend only 2-4 epochs for fine-tuning BERT, which saves a lot of time, compared to having to train models from scratch.
                             </li>
                             <li><strong>Less Data</strong>: When we train models from scratch, we usually need extremely massive datasets in order to train our network to a decent accuracy. However, large datasets might not be always available. BERT allows us to use its pre-trained weights and fine-tune it to work on different NLP problems with much smaller data.
                             </li>
-                            <li><strong>Better Results</strong>: This simple fine-tuning procedure (typically adding one fully-connected layer on top of BERT and training for a few epochs) was shown to achieve state-of-the-art results with minimal task-specific adjustments for a wide variety of tasks: classification, language inference, semantic similarity, question answering, etc. The original BERT papers.
+                            <li><strong>Better Results</strong>: This simple fine-tuning procedure (typically adding one fully-connected layer on top of BERT and training for a few epochs) was shown to achieve state-of-the-art results with minimal task-specific adjustments for a wide variety of tasks: classification, language inference, semantic similarity, question answering, etc.
                             </li>
                         </ul>
                         </p>
@@ -191,49 +186,79 @@
                             We will discuss specific implementation details in the following.
                         </p>
 
-                        <p>
+                        <ol type="a">
+                          <li>
+                            Text preprocesssing
+                          </li>
+                            <p>
                             We first processed and cleaned our raw data. We removed entity mentions (e.g., @united) and some special characters. The level of processing here is much less than regular NLP models, because BERT was trained with the entire sentences.
-                        </p>
+                            </p>
 
-                        <p>
-                           To feed our text to BERT, it must be split into tokens, and then these tokens must be mapped to their index in the tokenizer vocabulary. We first split the sentence into tokens and added the special [CLS] and [SEP] tokens. We then mapped the tokens to their IDs. We padded or truncated all sentences to the same length. Finally, we created the attention masks which explicitly differentiate real tokens from [PAD] tokens.
-                        </p>
+                          <li>
+                            BERT tokenization
+                          </li>
+                            <p>
+                              To feed our text to BERT, it must be split into tokens, and then these tokens must be mapped to their index in the tokenizer vocabulary. We use the tokenizer bert-base-uncased from the huggingface library.
+                            </p>
+                            <p>
+                              For each article, the BERT tokenizer allows us to:
+                              <ul>
+                                <li>
+                                  Split it into tokens and map them to their IDs corresponding to the tokenizer vocabulary
+                                </li>
+                                <li>
+                                  Pad or truncate all articles to the same length. The maximum length for the BERT model is 512. As a result, if an article is less than 512, we have to pad extra 0s to the end. Otherwise, if an article is greater than 512, we decided to only process the first 512 words of each article. This is because the main content of each article seems to be always in the beginning and play a great role in determining the overall content of an article. We don’t need to look beyond the first 512 words to be more certain about whether an article is propagandistic or not.
+                                </li>
+                                <li>
+                                  Add the special `[CLS]` and `[SEP]` tokens to the beginning and the end of each article. The [CLS] token is added at the beginning of the input sequence for classification tasks. The [SEP] token marks the end of a sentence, which allows the model to determine where a sentence ends, which is often used in next sentence prediction tasks. However, for simplicity, we will consider that each article is a big long sentence. Thus the [SEP] token will be added to the end of the sentence.
+                                </li>
+                                <li>
+                                  Create the attention masks which explicitly differentiate real tokens from the padded 0s.
+                                </li>
+                              </ul>
+                            </p>
+                          <li>
+                            Creating a model
+                          </li>
+                            <p>
+                              Bert-base-uncased model consists of 12 transformer layers. Each transformer layer takes in a list of token embeddings, and produces the same number of embeddings with the same hidden size (or dimensions) on the output. The output of the final transformer layer of the [CLS] token is used as the features of the sequence to feed a classifier. We extracted the last hidden layer of the [CLS] token and fed it to a classifier consisting of a hidden layer, a ReLU, a Dropout and a final layer of size 2, because we have 2 classes for the output.
+                            </p>
 
-                        <p>
-                            The way BERT does sentence classification, is that it adds a token called [CLS] (for classification) at the beginning of every sentence. The output corresponding to that token can be thought of as an embedding for the entire sentence. We saved those embeddings to be used as the features to our baseline model - a Naive Bayes classifier with TF-IDF vectorization.
-                        </p>
+                          <li>
+                            Training the model
+                          </li>
+                            <p>
+                              To optimize the performance of the model, we use the AdamW algorithm, which <a href="https://arxiv.org/abs/1711.05101">Loshchilov and Hutter</a> claimed that it yields better training loss and yields more generalizable models than the Adam one. There are a number of hyperparameters, such as batch size, learning rate, number of epochs. However, we observed that the learning rate seemed to make the most difference to the model’s performance on the validation set. As a result, we chose a number of small learning rates, such as 2e-6, 5e-6, 2e-5, 5e-5.
+                            </p>
+                            <p>
+                              When observing the performance of the model during training, we see that the train loss reaches near 0 and the train accuracy reaches near 100% within just a small number of epochs. There might be a sign that the model is prone to overfitting, as the validation loss keeps increasing in later epochs (it is supposed to decrease). However, we observed that the validation accuracy increases in later epochs (even though it didn’t increase much, since the validation accuracies on earlier epochs are already very high). Thus, we believe that the validation loss might not be a good indicator of the performance of the BERT model on the validation set. Thus, to determine the best model, we chose the weights that resulted in the largest validation accuracy instead of the one that resulted in the smallest validation loss as usual.
+                            </p>
+                            <p>
+                              We fine-tuned our hyperparameters and eventually chose a batch size of 8, a learning rate of 2e-5, and 10 epochs.
+                            </p>
+                        </ol>
 
-                        <p>
-                            BERT consists of 12 transformer layers, each transformer layer takes in a list of token embeddings, and produces the same number of embeddings with the same hidden size (or dimensions) on the output. The output of the final transformer layer of the [CLS] token is used as the features of the sequence to feed a classifier. We extracted the last hidden layer of the [CLS] token and fed it to a single-hidden-layer feed-forward neural network as our classifier.
-                        </p>
-
-                        <p>
-                            During training, we did the following at each pass:
-                        <ul>
-                            <li> Unpack our data inputs and labels
-                            </li>
-                            <li> Load data onto the GPU for acceleration
-                            </li>
-                            <li> Clear out the gradients calculated in the previous pass
-                            </li>
-                            <li> Forward pass (feed input data through the network)
-                            </li>
-                            <li> Backward pass (backpropagation)
-                            </li>
-                            <li> Tell the network to update parameters with optimizer.step()
-                            </li>
-                            <li> Track variables for monitoring progress
-                            </li>
-                            <li> Compute loss on our validation data and track variables for monitoring progress
-                            </li>
-                        </ul>
-                        </p>
                         <li><strong>Baseline: Naive Bayes with TF-IDF vectorization</strong></li>
                         <p> In order to check how well the BERT model does compare to other NLP models, we chose a Naive Bayes classifier with TF-IDF vectorization as our baseline.
                         </p>
 
                         <p> Naive Bayes classifiers are linear classifiers known for being easy to implement. Naive Bayes naively assumes that each word in a text occurs independently of its surrounding words. In practice, this independence assumption is usually violated, because words are not mutually independent. However, this model is able to achieve standard accuracies on a lot of NLP problems. In <a href="https://hrashkin.github.io/publications/factcheck_emnlp17.pdf">Rashkin et al</a>’s research on fake news detection and political fact-checking using a Politico dataset, the Naive Bayes model yielded the highest tech accuracy for text classification on 2 classes together with a LSTM one (56 %).
                         </p>
+
+                        <ol type="a">
+                          <li>Text preprocessing</li>
+                          <p>
+                            Before feeding the texts into the classifier, we had to do a lot of text preprocessing to make the sentences lowercase, remove punctuations, remove stop words, etc.
+                          </p>
+                          <li>TF-IDF vectorizer</li>
+                          <p>
+                            We then used the TF-IDF (term frequency-inverse document frequency) weighting scheme in order to vectorize the texts. This weighting scheme is very popular in information retrieval and machine learning. It is a measure of originality of word, by comparing the number of times a word appears in a document versus the number of documents it appears in. Words that appear a lot in every single document and across many documents, such as “the” or “what”, are not very informative and don't contribute much to the meaning of the article. On the other hand, if a word appears more frequently in a specific document, it suggests this certain word is uniquely important to that document.
+                          </p>
+                          <li>Training the Naive Bayes classifier</li>
+                          <p>
+                            We used the MultinomialNB() algorithm from sklearn. The only hyperparameter that we had to fine-tune is alpha, the Laplace smoothing parameter. We checked the result of the model on various alpha values between 0 and 1, and found that when alpha = 2e-3 the model gave the highest validation accuracy. After getting the best hyperparameter, we test its performance on the test set.
+                          </p>
+                        </ol>
                       </ol>
                     </td>
                 </tr>
@@ -270,18 +295,15 @@
                     <td style="padding:20px;width:100%;vertical-align:middle">
                         <heading>Results</heading>
                         <ol>
-                          <li><strong>Naive Bayes classifier</strong>
-                          </li>
-                        <p>
-                          The table below shows the performance of the Naive Bayes classifier.
-                        </p>
-                            <img src="nb_table.png" width="600" height="220" class="center">                        
-                        <p> The figure below is the confusion matrix for the Naive Bayes classifier.
-                        </p>
-
-                            <img src="nb_confusion.png" width="600" height="300" class="center">
-
                           <li><strong>Fine-tuned BERT</strong></li>
+
+                        <p>
+                          The train losses, validation losses, train accuracies and validation accuracies of the Fine-tuned BERT model are demonstrated in the plots below:
+                        </p>
+                            <img src="bert_loss.png" width="600" height="200" class="center">   
+
+                            <img src="bert_acc.png" width="600" height="200" class="center">  
+
                         <p>
                           The table below shows the performance of the Fine-tuned BERT model.
                         </p>
@@ -292,13 +314,24 @@
                         </p>
 
                             <img src="bert_confusion.png" width="600" height="300" class="center">    
-                            
+
+                          <li><strong>Naive Bayes classifier</strong>
+                          </li>
+                        <p>
+                          The table below shows the performance of the Naive Bayes classifier.
+                        </p>
+                            <img src="nb_table.png" width="600" height="220" class="center">                        
+                        <p> The figure below is the confusion matrix for the Naive Bayes classifier.
+                        </p>
+
+                            <img src="nb_confusion.png" width="600" height="300" class="center">                            
                         <p> The test accuracies for both models are roughly close and very high (95.46% for the Naive Bayes model and 97.41% for the fine-tuned BERT model). However, purely looking at this doesn’t allow us to have a full picture of how well these two models perform. Due to the imbalance proportion of propagandistic articles in the original dataset (about 11% across 3 data files), both models might have learned the features of a non-propagandistic article well, and the classification result is skewed towards the non-propagandistic class. As a result, both models have very high true negative rates, which are close to 100%. This suggests that they both don’t have difficulty identifying articles free of propagandistic content. However, when looking at the true positive rate, we can see that the Naive Bayes model doesn’t do as well as the fine-tuned BERT one. BERT seems to be able to extract features of propagandistic content in an article and learn to differentiate it with unbiased, neutral content.
                         </p>
 
                         <p>
                           It’s worth noting that the true positive rates from both models are not as not as good their respective true negative rates, which seems to suggest that NLP models, even the classic ones, are able to correctly evaluate non-propagandistic content with very high probability, but propagandistic content still poses a challenge to them. 
                         </p>
+                      </ol>
                     </td>
                 </tr>
                 </tbody>
@@ -308,13 +341,13 @@
                 </tbody>
             </table>
 
-<!--             <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
                 <tbody>
                 <tr>
                     <td style="padding:20px;width:100%;vertical-align:middle">
-                        <heading>Examples</heading>
+                        <heading>Conclusion</heading>
                         <p>
-                            images/text/live demo, anything to show off your work
+                          The performance of BERT fine-tuned model on detecting articles with propagandistic content is much better than the baseline Naive Bayes model. Detecting these kinds of texts is not even an easy task even for humans, but the results from BERT shows promising results that it can be harnessed to make good predictions and utilized to combat fake news and propaganda nowadays.
                         </p>
                     </td>
                 </tr>
@@ -323,7 +356,7 @@
             <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
                 <tbody>
                 </tbody>
-            </table> -->
+            </table>
 
             <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
                 <tbody>
@@ -331,14 +364,14 @@
                     <td style="padding:20px;width:100%;vertical-align:middle">
                         <heading>Video</heading>
                         <p>
-                            Here's our demo for the <a href="https://www.youtube.com/watch?v=MFJ4DJw7N2M">BERT classifier</a>. (Note: we used the word "fake" for "propagandistic" and "real" for "non-propagandistic" in the demos) 
+                            Here's our demo for the <a href="https://www.youtube.com/watch?v=k-ZKOeZTWKg">BERT classifier</a>.
                         </p>
 <!--                         <iframe width="745" height="447"
                           src="https://www.youtube.com/watch?v=MFJ4DJw7N2M">
                         </iframe> -->
 
                         <p>
-                          And here's one for our baseline model, a <a href="https://www.youtube.com/watch?v=5DISI3SyjaY">Naive Bayes classifier</a>.
+                          And here's one for our baseline model, a <a href="https://www.youtube.com/watch?v=dO8jofstGq8">Naive Bayes classifier</a>.
                         </p>
 <!--                         <iframe width="745" height="447"
                           src="https://www.youtube.com/watch?v=5DISI3SyjaY">
